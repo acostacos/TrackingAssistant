@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TrackingAssistant.Service.WorkoutTracker.Interfaces;
+using TrackingAssistant.Service.WorkoutTracker.Messages;
 
 namespace TrackingAssistant.Controllers
 {
@@ -8,13 +10,24 @@ namespace TrackingAssistant.Controllers
     [Route("api/[controller]")]
     public class WorkoutPlanController : ControllerBase
     {
-        public WorkoutPlanController()
+        private readonly IWorkoutPlanService _workoutPlanService;
+
+        public WorkoutPlanController(IWorkoutPlanService workoutPlanService)
         {
-            // Figure out how to do dependency injection
+            _workoutPlanService = workoutPlanService;
         }
 
         // Figure out what information you need to put here
         [HttpGet]
+        public IActionResult GetAllWorkoutPlan()
+        {
+            _workoutPlanService.GetAllWorkoutPlan();
+            return Ok();
+            //return NotFound(); if not found
+        }
+
+        [HttpGet]
+        [Route("/{id}")] // Is this right?
         public IActionResult GetWorkoutPlan()
         {
             return Ok();
@@ -22,15 +35,15 @@ namespace TrackingAssistant.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateWorkoutPlan()
+        public IActionResult CreateWorkoutPlan([FromBody] CreateWorkoutPlanRequest request)
         {
+            _workoutPlanService.CreateWorkoutPlan(request);
             return Ok();
             //return Created(); default response?
             //return Conflict(); if already exists
         }
 
-        // Check difference between put and patch
-        [HttpPatch]
+        [HttpPut]
         public IActionResult UpdateWorkoutPlan()
         {
             return Ok();
