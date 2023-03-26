@@ -1,6 +1,6 @@
 ﻿namespace TrackingAssistantAPI.Shared
 {
-    internal class ConfigurationSettings : IConfigurationSettings
+    public class ConfigurationSettings : IConfigurationSettings
     {
         private readonly string _connString;
         public string ConnectionString { get { return _connString; } }

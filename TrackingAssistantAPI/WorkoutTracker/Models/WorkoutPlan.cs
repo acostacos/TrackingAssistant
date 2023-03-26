@@ -1,7 +1,9 @@
 ﻿namespace TrackingAssistantAPI.WorkoutTracker.Models
 {
-    internal class WorkoutPlan
+    public class WorkoutPlan
     {
-        public string Name { get; set; }
+        public int WorkoutPlanId { get; set; }
+        public string? Name { get; set; }
+        public DateTime? CreateDate { get; set; }
     }
 }

@@ -3,9 +3,11 @@ using TrackingAssistantAPI.WorkoutTracker.Models;
 
 namespace TrackingAssistant.Service.WorkoutTracker.Interfaces
 {
-    internal interface IWorkoutPlanService
+    public interface IWorkoutPlanService
     {
         public List<WorkoutPlan> GetAllWorkoutPlan();
-        public void CreateWorkoutPlan(CreateWorkoutPlanRequest request);
+        public WorkoutPlan? GetWorkoutPlan(int id);
+        public int CreateWorkoutPlan(CreateWorkoutPlanRequest request);
+        public void DeleteWorkoutPlan(int id);
     }
 }

@@ -2,8 +2,10 @@
 
 namespace TrackingAssistantAPI.Database
 {
-    internal interface IDbRepository
+    public interface IDbRepository
     {
-        public DataTable ExecuteReader(string query);
+        public DataTable ExecuteReader(string query, IDbDataParameter[]? parameters = null);
+        public object? ExecuteScalar(string query, IDbDataParameter[]? parameters = null);
+        public int ExecuteNonQuery(string query, IDbDataParameter[]? parameters = null);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace TrackingAssistant.Service.WorkoutTracker.Messages
 {
-    internal class CreateWorkoutPlanRequest
+    public class CreateWorkoutPlanRequest
     {
-        private string Name { get; set; }
+        public string Name { get; set; }
     }
 }

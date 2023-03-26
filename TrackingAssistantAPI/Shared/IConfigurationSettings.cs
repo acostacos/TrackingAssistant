@@ -1,6 +1,6 @@
 ﻿namespace TrackingAssistantAPI.Shared
 {
-    internal interface IConfigurationSettings
+    public interface IConfigurationSettings
     {
         string ConnectionString { get; }
     }

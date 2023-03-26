@@ -4,8 +4,6 @@ using TrackingAssistant.Service.WorkoutTracker.Messages;
 
 namespace TrackingAssistant.Controllers
 {
-    // TODO: Study Program.cs class first and what each method does
-
     [ApiController]
     [Route("api/[controller]")]
     public class WorkoutPlanController : ControllerBase
@@ -17,30 +15,28 @@ namespace TrackingAssistant.Controllers
             _workoutPlanService = workoutPlanService;
         }
 
-        // Figure out what information you need to put here
         [HttpGet]
         public IActionResult GetAllWorkoutPlan()
         {
-            _workoutPlanService.GetAllWorkoutPlan();
-            return Ok();
-            //return NotFound(); if not found
+            var workoutPlans = _workoutPlanService.GetAllWorkoutPlan();
+            if (workoutPlans == null) return NotFound();
+            return Ok(workoutPlans);
         }
 
         [HttpGet]
-        [Route("/{id}")] // Is this right?
-        public IActionResult GetWorkoutPlan()
+        [Route("{id}")]
+        public IActionResult GetWorkoutPlan([FromRoute] int id)
         {
-            return Ok();
-            //return NotFound(); if not found
+            var workoutPlan = _workoutPlanService.GetWorkoutPlan(id);
+            if (workoutPlan == null) return NotFound();
+            return Ok(workoutPlan);
         }
 
         [HttpPost]
         public IActionResult CreateWorkoutPlan([FromBody] CreateWorkoutPlanRequest request)
         {
-            _workoutPlanService.CreateWorkoutPlan(request);
-            return Ok();
-            //return Created(); default response?
-            //return Conflict(); if already exists
+            var id = _workoutPlanService.CreateWorkoutPlan(request);
+            return Created(nameof(GetWorkoutPlan), new { id = id });
         }
 
         [HttpPut]
@@ -51,7 +47,7 @@ namespace TrackingAssistant.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteWorkoutPlan()
+        public IActionResult DeleteWorkoutPlan([FromRoute] int id)
         {
             return Ok();
         }
