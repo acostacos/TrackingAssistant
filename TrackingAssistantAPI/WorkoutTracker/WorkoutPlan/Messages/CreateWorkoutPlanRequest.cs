@@ -1,4 +1,4 @@
-﻿namespace TrackingAssistant.Service.WorkoutTracker.Messages
+﻿namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Messages
 {
     public class CreateWorkoutPlanRequest
     {

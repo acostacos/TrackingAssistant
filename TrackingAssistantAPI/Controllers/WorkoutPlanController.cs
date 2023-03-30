@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TrackingAssistant.Service.WorkoutTracker.Interfaces;
-using TrackingAssistant.Service.WorkoutTracker.Messages;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Interfaces;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Messages;
 
-namespace TrackingAssistant.Controllers
+namespace TrackingAssistantAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -18,25 +18,28 @@ namespace TrackingAssistant.Controllers
         [HttpGet]
         public IActionResult GetAllWorkoutPlan()
         {
-            var workoutPlans = _workoutPlanService.GetAllWorkoutPlan();
-            if (workoutPlans == null) return NotFound();
-            return Ok(workoutPlans);
+            var response = _workoutPlanService.GetAllWorkoutPlan();
+            if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            if (response.WorkoutPlans == null) return NotFound();
+            return Ok(response.WorkoutPlans);
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetWorkoutPlan([FromRoute] int id)
         {
-            var workoutPlan = _workoutPlanService.GetWorkoutPlan(id);
-            if (workoutPlan == null) return NotFound();
-            return Ok(workoutPlan);
+            var response = _workoutPlanService.GetWorkoutPlan(id);
+            if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            if (response.WorkoutPlan == null) return NotFound();
+            return Ok(response.WorkoutPlan);
         }
 
         [HttpPost]
         public IActionResult CreateWorkoutPlan([FromBody] CreateWorkoutPlanRequest request)
         {
-            var id = _workoutPlanService.CreateWorkoutPlan(request);
-            return Created(nameof(GetWorkoutPlan), new { id = id });
+            var response = _workoutPlanService.CreateWorkoutPlan(request);
+            if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            return Created(nameof(GetWorkoutPlan), new { id = response.CreatedId });
         }
 
         [HttpPut]
@@ -47,8 +50,10 @@ namespace TrackingAssistant.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteWorkoutPlan([FromRoute] int id)
+        public IActionResult DeleteWorkoutPlan([FromBody] int id)
         {
+            var response = _workoutPlanService.DeleteWorkoutPlan(id);
+            if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
             return Ok();
         }
     }

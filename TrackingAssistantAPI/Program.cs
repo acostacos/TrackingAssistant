@@ -1,7 +1,7 @@
-using TrackingAssistant.Service.WorkoutTracker;
-using TrackingAssistant.Service.WorkoutTracker.Interfaces;
 using TrackingAssistantAPI.Database;
 using TrackingAssistantAPI.Shared;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
