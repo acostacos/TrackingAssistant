@@ -31,7 +31,7 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlan
                         WorkoutPlanId = Convert.ToInt32(row["workoutplan_id"]),
                         Name = row["name"]?.ToString(),
                         CreateDate = Convert.ToDateTime(row["createdate"]),
-                    }); ;
+                    });
                 }
 
                 return new GetAllWorkoutsResponse()
@@ -90,6 +90,27 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlan
             catch (Exception ex)
             {
                 return new CreateWorkoutPlanResponse(ex);
+            }
+        }
+
+        public ServiceResponseBase UpdateWorkoutPlan(UpdateWorkoutPlanRequest request)
+        {
+            try
+            {
+                var checkerQuery = "SELECT 1 FROM workoutplan WHERE workoutplan_id=@id";
+                var checkerParams = new IDbDataParameter[] { new NpgsqlParameter("id", request.WorkoutPlanId) };
+                var result = _dbRepository.ExecuteScalar(checkerQuery, checkerParams);
+                if (result == null) throw new Exception("Not Found");
+
+                var updateQuery = "UPDATE workoutplan SET name=@name WHERE workoutplan_id=@id";
+                var updateParams = new IDbDataParameter[] { new NpgsqlParameter("id", request.WorkoutPlanId), new NpgsqlParameter("name", request.Name) };
+                _dbRepository.ExecuteNonQuery(updateQuery, updateParams);
+
+                return new ServiceResponseBase();
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponseBase(ex);
             }
         }
 

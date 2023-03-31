@@ -5,7 +5,7 @@ using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Messages;
 namespace TrackingAssistantAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/workoutplan")]
     public class WorkoutPlanController : ControllerBase
     {
         private readonly IWorkoutPlanService _workoutPlanService;
@@ -43,17 +43,27 @@ namespace TrackingAssistantAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateWorkoutPlan()
+        public IActionResult UpdateWorkoutPlan([FromBody] UpdateWorkoutPlanRequest request)
         {
+            var response = _workoutPlanService.UpdateWorkoutPlan(request);
+            if (response.Exception != null)
+            {
+                if (response.Exception.Message == "Not Found") return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            }
             return Ok();
-            //return NotFound();
         }
 
         [HttpDelete]
         public IActionResult DeleteWorkoutPlan([FromBody] int id)
         {
             var response = _workoutPlanService.DeleteWorkoutPlan(id);
-            if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            if (response.Exception != null)
+            {
+                if (response.Exception.Message == "Not Found") return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
+            }
+                
             return Ok();
         }
     }

@@ -8,6 +8,7 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Interfaces
         public GetAllWorkoutsResponse GetAllWorkoutPlan();
         public GetWorkoutPlanResponse GetWorkoutPlan(int id);
         public CreateWorkoutPlanResponse CreateWorkoutPlan(CreateWorkoutPlanRequest request);
+        public ServiceResponseBase UpdateWorkoutPlan(UpdateWorkoutPlanRequest request);
         public ServiceResponseBase DeleteWorkoutPlan(int id);
     }
 }
