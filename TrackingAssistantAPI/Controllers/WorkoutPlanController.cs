@@ -24,8 +24,7 @@ namespace TrackingAssistantAPI.Controllers
             return Ok(response.WorkoutPlans);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetWorkoutPlan([FromRoute] int id)
         {
             var response = _workoutPlanService.GetWorkoutPlan(id);

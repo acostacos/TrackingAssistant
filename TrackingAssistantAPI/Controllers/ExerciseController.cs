@@ -25,8 +25,7 @@ namespace TrackingAssistantAPI.Controllers
             return Ok(response.Exercises);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetExercise([FromRoute] int id)
         {
             var response = _exerciseService.GetExercise(id);

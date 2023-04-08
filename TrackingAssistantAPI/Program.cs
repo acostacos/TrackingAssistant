@@ -1,7 +1,11 @@
 using TrackingAssistantAPI.Database;
 using TrackingAssistantAPI.Shared;
+using TrackingAssistantAPI.WorkoutTracker.Exercise;
+using TrackingAssistantAPI.WorkoutTracker.Exercise.Interfaces;
 using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan;
 using TrackingAssistantAPI.WorkoutTracker.WorkoutPlan.Interfaces;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlanExercise;
+using TrackingAssistantAPI.WorkoutTracker.WorkoutPlanExercise.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,8 @@ builder.Configuration
 builder.Services.AddSingleton<IConfigurationSettings, ConfigurationSettings>();
 builder.Services.AddSingleton<IDbRepository, PostgresDbRepository>();
 builder.Services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
+builder.Services.AddScoped<IWorkoutPlanExerciseService, WorkoutPlanExerciseService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

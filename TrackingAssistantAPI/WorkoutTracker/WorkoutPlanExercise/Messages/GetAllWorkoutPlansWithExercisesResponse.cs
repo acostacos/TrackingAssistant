@@ -5,7 +5,7 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlanExercise.Messages
 {
     public class GetAllWorkoutPlansWithExercisesResponse : ServiceResponseBase
     {
-        public List<WorkoutPlanExerciseDto>? WorkoutPlanExercises { get; set; }
+        public List<WorkoutPlanExerciseResponseDto>? WorkoutPlanExercises { get; set; }
         public GetAllWorkoutPlansWithExercisesResponse() : base() { }
         public GetAllWorkoutPlansWithExercisesResponse(Exception ex) : base(ex) { }
     }
