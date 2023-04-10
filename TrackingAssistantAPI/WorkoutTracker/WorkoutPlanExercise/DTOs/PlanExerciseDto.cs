@@ -4,6 +4,7 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutPlanExercise.DTOs
 {
     public class PlanExerciseDto : ExerciseDto
     {
+        public int WorkoutPlanExerciseId { get; set; }
         public int StartSetRange { get; set; }
         public int EndSetRange { get; set; }
         public int StartRepRange { get; set; }

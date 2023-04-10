@@ -48,7 +48,7 @@ namespace TrackingAssistantAPI.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetAllWorkoutRecords()
         {
             var response = _workoutRecordService.GetAllWorkoutRecords();
@@ -58,9 +58,9 @@ namespace TrackingAssistantAPI.Controllers
         }
 
         [HttpPost("get")]
-        public IActionResult GetWorkoutPlan([FromBody] GetWorkoutRecordRequest request)
+        public IActionResult GetWorkoutPlan([FromBody] GetWorkoutRecordsRequest request)
         {
-            var response = _workoutRecordService.GetWorkoutRecord(request);
+            var response = _workoutRecordService.GetWorkoutRecords(request);
             if (response.Exception != null) return StatusCode(StatusCodes.Status500InternalServerError, response.Exception.Message);
             if (response.WorkoutRecords == null) return NotFound();
             return Ok(response.WorkoutRecords);

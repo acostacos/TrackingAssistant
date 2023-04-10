@@ -9,6 +9,6 @@ namespace TrackingAssistantAPI.WorkoutTracker.WorkoutRecord.Interfaces
         public ServiceResponseBase UpdateWorkoutRecord(UpdateWorkoutRecordRequest request);
         public ServiceResponseBase DeleteWorkoutRecord(int id);
         public GetWorkoutRecordsResponse GetAllWorkoutRecords();
-        public GetWorkoutRecordsResponse GetWorkoutRecord(GetWorkoutRecordRequest request);
+        public GetWorkoutRecordsResponse GetWorkoutRecords(GetWorkoutRecordsRequest request);
     }
 }

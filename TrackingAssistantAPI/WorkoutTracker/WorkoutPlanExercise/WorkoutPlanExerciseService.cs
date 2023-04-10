@@ -67,7 +67,6 @@ ON wpe.exercise_id = e.exercise_id";
                     {
                         workoutPlanExercises.Add(new WorkoutPlanExerciseResponseDto()
                         {
-                            WorkoutPlanExerciseId = newDto.WorkoutPlanExerciseId,
                             WorkoutPlan = new WorkoutPlanDto()
                             {
                                 WorkoutPlanId = newDto.WorkoutPlanId,
@@ -78,6 +77,7 @@ ON wpe.exercise_id = e.exercise_id";
                             {
                                 new PlanExerciseDto()
                                 {
+                                    WorkoutPlanExerciseId = newDto.WorkoutPlanExerciseId,
                                     ExerciseId = newDto.ExerciseId,
                                     Name = newDto.ExerciseName,
                                     TargetMuscles = newDto.ExerciseTargetMuscles,
@@ -95,6 +95,7 @@ ON wpe.exercise_id = e.exercise_id";
                     {
                         workoutParent.Exercises?.Add(new PlanExerciseDto()
                         {
+                            WorkoutPlanExerciseId = newDto.WorkoutPlanExerciseId,
                             ExerciseId = newDto.ExerciseId,
                             Name = newDto.ExerciseName,
                             TargetMuscles = newDto.ExerciseTargetMuscles,
@@ -151,7 +152,6 @@ WHERE wp.workoutplan_id=@id";
                     var firstRow = result.Rows[0];
                     workoutPlanExercise = new WorkoutPlanExerciseResponseDto()
                     {
-                        WorkoutPlanExerciseId = Convert.ToInt32(firstRow["wpe_workoutplan_exercise_id"]),
                         WorkoutPlan = new WorkoutPlanDto()
                         {
                             WorkoutPlanId = Convert.ToInt32(firstRow["wp_id"]),
@@ -164,6 +164,7 @@ WHERE wp.workoutplan_id=@id";
                     {
                         workoutPlanExercise.Exercises?.Add(new PlanExerciseDto()
                         {
+                            WorkoutPlanExerciseId = Convert.ToInt32(row["wpe_workoutplan_exercise_id"]),
                             ExerciseId = Convert.ToInt32(row["e_id"]),
                             Name = row["e_name"].ToString(),
                             TargetMuscles = row["e_target_muscles"].ToString(),
